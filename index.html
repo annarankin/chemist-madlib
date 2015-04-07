@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style type="text/css">
+        body {
+            background: #0F1F4C;
+            font-family: Helvetica, Arial, sans-serif; 
+        }
+        .wrapper {
+            background: #ffffff;
+            max-width: 700px;
+            margin: 40px auto;
+            padding: 20px;
+            text-align:center;
+        }
+        p {
+            margin: 10px 30px;
+        }
+        h1{
+            font-family: Georgia, Times, serif; 
+            color: #3366FF;
+        }
+        .formstuff {
+            font-size: 20px;
+            color: #FFFFFF;
+            background: #3366FF;
+            border-width: 0;
+            padding: 15px;
+            border-radius: 10px;
+
+        }
+    </style>
+
+    <title>Science</title>
+</head>
+<body>
+    <div class="wrapper">
+    <h1>Famous Chemists</h1>
+    <p>Welcome to an informative directory of famous chemists! Choose your story and your words below - click "GO!" to start the reaction!</p>
+
+    <form name="madlibs" action="/story">
+        <select class="formstuff" name="story_selected" />
+            <option value="story1">Marie Curie</option>
+            <option value="story2">Louis Pasteur</option>
+            <option value="story3">Alfred Nobel</option>
+            </select><br>
+        <p><label>Noun 1: 
+            <input type="text" name="noun1" />
+        </label>
+        <label>Noun 2: 
+            <input type="text" name="noun2" />
+        </label>
+        <label>Adjective: 
+            <input type="text" name="adjective" />
+        </label></p><p>
+        <label>Verb: 
+            <input type="text" name="verb" />
+        </label>
+        <label>Noun 3: 
+            <input type="text" name="noun3" />
+        </label>
+        <label>Noun 4: 
+            <input type="text" name="noun4" />
+        </label></p>
+        <button class="formstuff">GO!</button>
+    </form>
+
+    <h4>Can't think of a word? Here are a few suggestions!</h4>
+
+    {{#words}}
+        <p> {{word}} </p>
+    {{/words}}
+
+    </div>
+</body>
+</html>
