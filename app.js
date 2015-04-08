@@ -19,7 +19,9 @@ app.get("/", function(req, res) {
         console.log("SOMEONE'S HERE OMG")
         request.get("http://api.wordnik.com:80/v4/words.json/randomWords?hasDictionaryDef=true&minCorpusCount=0&maxCorpusCount=-1&minDictionaryCount=1&maxDictionaryCount=-1&minLength=5&maxLength=-1&limit=7&api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5", function(error, response, body) {
             var randomWords = JSON.parse(body)
-            var rendered = Mustache.render(data,{"words": randomWords})
+            var rendered = Mustache.render(data, {
+                "words": randomWords
+            })
             res.send(rendered)
 
         });
@@ -31,14 +33,32 @@ app.get("/story", function(req, res) {
     console.log("Accessed /story")
         //console.log(req.query)
         //var renderObject = { "noun1": req.query.noun1}
+    var keysArray = Object.keys(req.query)
+    var allsWell = true;
+        //check if anything is not defined.
+    Object.keys(req.query).forEach(function(key) {
+        // console.log(key, req.query[key])
+        if (req.query[key].length > 0) {
+            console.log(key + " is defined!")
+        } else {
+            console.log(key + " is undefined!");
+            allsWell = false;
+        }
+    }); //end forEach function
 
-
-    var storySelected = "./stories/" + req.query.story_selected + ".html"
-    fs.readFile(storySelected, 'utf8', function(err, data) {
-        //var renderObject = JSON.parse(req.query);
-        var userStory = Mustache.render(data, req.query);
-        res.send(userStory)
-    }); //end read selected story template file function
+    if (allsWell) {
+        var storySelected = "./stories/" + req.query.story_selected + ".html"
+        fs.readFile(storySelected, 'utf8', function(err, data) {
+            //var renderObject = JSON.parse(req.query);
+            var userStory = Mustache.render(data, req.query);
+            res.send(userStory)
+        });
+    } else {
+        fs.readFile('./error.html', 'utf8', function(err, data) {
+            res.send(data)
+        }); //end readFile function
+    }
+    //end read selected story template file function
 }); //end app.get /story function
 
 
